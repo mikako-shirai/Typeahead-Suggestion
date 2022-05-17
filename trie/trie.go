@@ -1,13 +1,13 @@
 package trie
 
-const ALBHABET_ALL_LENGTH = 26
+const ALPHABET_ALL_LENGTH = 26
 
 type Trie struct {
   root *TrieNode
 }
 
 type TrieNode struct {
-  children [ALBHABET_ALL_LENGTH]*TrieNode
+  children [ALPHABET_ALL_LENGTH]*TrieNode
   isWord bool
 }
 
@@ -18,10 +18,10 @@ func InitializeTrie() *Trie {
 }
 
 func (trie *Trie) Insert(word string) {
-  wordLength := len(word)
+  length := len(word)
   currentNode := trie.root
 
-  for i := 0; i < wordLength; i++ {
+  for i := 0; i < length; i++ {
     index := word[i] - 'a'
     if currentNode.children[index] == nil {
       currentNode.children[index] = &TrieNode{}
@@ -32,10 +32,10 @@ func (trie *Trie) Insert(word string) {
 }
 
 func (trie *Trie) IsInTrie(word string) bool {
-  wordLength := len(word)
+  length := len(word)
   currentNode := trie.root
   
-  for i := 0; i < wordLength; i++ {
+  for i := 0; i < length; i++ {
     index := word[i] - 'a'
     if currentNode.children[index] == nil {
       return false
@@ -48,3 +48,5 @@ func (trie *Trie) IsInTrie(word string) bool {
 
 // TODO 1:
 // Add Prefix method for returning subtrees of a search
+
+var NewTrie = InitializeTrie()
