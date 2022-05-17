@@ -5,11 +5,11 @@ import (
 )
 
 func setRoutes() {
-	http.HandleFunc("/headers", headers)
-  http.HandleFunc("/search", search)
+    http.HandleFunc("/headers", headers)
+    http.HandleFunc("/search", search)
 }
 
 func InitializeServer() {
-	setRoutes()
-	http.ListenAndServe(":8090", nil)
+    setRoutes()
+    http.ListenAndServe(":8090", nil)
 }
