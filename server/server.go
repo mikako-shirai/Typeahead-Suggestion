@@ -5,7 +5,8 @@ import (
 )
 
 func setRoutes() {
-    http.HandleFunc("/search", search)
+    http.HandleFunc("/", getAllWords)
+    http.HandleFunc("/search", getWordsByPrefix)
     http.HandleFunc("/add", insert)
 }
 

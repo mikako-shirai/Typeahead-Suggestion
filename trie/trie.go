@@ -49,19 +49,6 @@ func (trie *Trie) SearchByWord(word string) bool {
     return currentNode.isWord
 }
 
-func (trie *Trie) SearchByPrefix(prefix string) []string {
-    foundWords := []string{}
-
-    if isValidPrefix := trie.SearchByWord(prefix); isValidPrefix {
-        foundWords = append(foundWords, prefix)
-    }
-
-    nodeAtPrefix := trie.getNodeByWord(prefix)
-    foundWords = nodeAtPrefix.getWordsByPrefix(prefix, foundWords)
-    
-    return foundWords
-}
-
 func (trie *Trie) getNodeByWord(word string) *TrieNode {
     length := len(word)
     currentNode := trie.root
@@ -73,14 +60,32 @@ func (trie *Trie) getNodeByWord(word string) *TrieNode {
     return currentNode
 }
 
-func (node *TrieNode) getWordsByPrefix(prefix string, foundWords []string) []string {
+func (trie *Trie) GetAllWords() []string {
+    foundWords := trie.root.traverse("", []string{})
+    return foundWords
+}
+
+func (trie *Trie) GetWordsByPrefix(prefix string) []string {
+    foundWords := []string{}
+
+    if isValidPrefix := trie.SearchByWord(prefix); isValidPrefix {
+        foundWords = append(foundWords, prefix)
+    }
+
+    nodeAtPrefix := trie.getNodeByWord(prefix)
+    foundWords = nodeAtPrefix.traverse(prefix, foundWords)
+    
+    return foundWords
+}
+
+func (node *TrieNode) traverse(prefix string, foundWords []string) []string {
     for index, node := range &node.children {
         if node != nil {
             char := ALPHABET_ALL[index]
             if node.isWord {
                 foundWords = append(foundWords, prefix + char)
             }
-            node.getWordsByPrefix(prefix + char, foundWords)
+            foundWords = node.traverse(prefix + char, foundWords)
         }
     }
     return foundWords
