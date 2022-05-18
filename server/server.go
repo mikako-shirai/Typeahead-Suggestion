@@ -5,8 +5,8 @@ import (
 )
 
 func setRoutes() {
-    http.HandleFunc("/headers", headers)
     http.HandleFunc("/search", search)
+    http.HandleFunc("/add", insert)
 }
 
 func InitializeServer() {

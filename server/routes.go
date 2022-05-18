@@ -3,37 +3,36 @@ package server
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/mikako-shirai/Typeahead-Suggestion/trie"
 )
 
-func headers(w http.ResponseWriter, req *http.Request) {
-    for name, headers := range req.Header {
-        for _, h := range headers {
-            fmt.Fprintf(w, "%v: %v\n", name, h)
-        }
+func search(w http.ResponseWriter, req *http.Request) {
+    currentWord := req.URL.Query().Get("word")
+    currentWord = strings.ToLower(currentWord)
+
+    foundWords := trie.NewTrie.SearchByPrefix(currentWord)
+    fmt.Printf("foundWords  %v\n\n", foundWords)
+
+    // words, err := json.Marshal(foundWords)
+    // if err != nil {
+    //     fmt.Println(err)
+    // }
+    
+    if len(foundWords) != 0 {
+        fmt.Printf("[GET] \"%s\" found\n", currentWord)
+        fmt.Fprintf(w, "%v\n", foundWords)
+    } else {
+        trie.NewTrie.Insert(currentWord)
+        
+        fmt.Printf("[GET] \"%s\" not found\n", currentWord)
+        fmt.Fprintf(w, "%v\n", foundWords)
     }
 }
 
-func search(w http.ResponseWriter, req *http.Request) {
-    paramWord := req.URL.Query().Get("word")
-    fmt.Printf("[GET] param : \"%s\"\n", paramWord)
-
-    // TODO 2:
-    // Use Prefix method instead of IsInTree
-
-    found := trie.NewTrie.SearchByWord(paramWord)
-    response := make(map[string]string)
-
-    if found {
-        response["found"] = "found"
-        response["word"] = paramWord
-        fmt.Printf("[GET] \"%s\" found : TRUE\n", paramWord)
-        fmt.Fprintf(w, "%v\n", response)
-    } else {
-        response["found"] = "not found"
-        fmt.Printf("[GET] \"%s\" found : false\n", paramWord)
-        trie.NewTrie.Insert(paramWord)
-        fmt.Fprintf(w, "%v\n", response)
-    }
+func insert(w http.ResponseWriter, req *http.Request) {
+    currentWord := req.URL.Query().Get("word")
+    currentWord = strings.ToLower(currentWord)
+    trie.NewTrie.Insert(currentWord)
 }
