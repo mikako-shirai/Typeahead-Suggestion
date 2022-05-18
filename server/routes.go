@@ -22,7 +22,7 @@ func search(w http.ResponseWriter, req *http.Request) {
     // TODO 2:
     // Use Prefix method instead of IsInTree
 
-    found := trie.NewTrie.IsInTrie(paramWord)
+    found := trie.NewTrie.SearchByWord(paramWord)
     response := make(map[string]string)
 
     if found {

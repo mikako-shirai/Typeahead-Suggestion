@@ -1,6 +1,8 @@
 package trie
 
 const ALPHABET_ALL_LENGTH = 26
+var ALPHABET_ALL = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
 
 type Trie struct {
     root *TrieNode
@@ -31,7 +33,7 @@ func (trie *Trie) Insert(word string) {
     currentNode.isWord = true
 }
 
-func (trie *Trie) IsInTrie(word string) bool {
+func (trie *Trie) SearchByWord(word string) bool {
     length := len(word)
     currentNode := trie.root
   
@@ -45,7 +47,41 @@ func (trie *Trie) IsInTrie(word string) bool {
     return currentNode.isWord
 }
 
-// TODO 1:
-// Add Prefix method for returning subtrees of a search
+func (trie *Trie) getNodeByWord(word string) *TrieNode {
+    length := len(word)
+    currentNode := trie.root
+  
+    for i := 0; i < length; i++ {
+        index := word[i] - 'a'
+        currentNode = currentNode.children[index]
+    }
+    return currentNode
+}
+
+func (trie *Trie) SearchByPrefix(prefix string) []string {
+    isValidPrefix := trie.SearchByWord(prefix)
+    if !isValidPrefix {
+        return []string{""}
+    }
+
+    foundWords := []string{prefix}
+    nodeAtPrefix := trie.getNodeByWord(prefix)
+    foundWords = nodeAtPrefix.traverse(prefix, foundWords)
+    
+    return foundWords
+}
+
+func (node *TrieNode) traverse(prefix string, foundWords []string) []string {
+    for index, node := range &node.children {
+        if node != nil {
+            char := ALPHABET_ALL[index]
+            if node.isWord {
+                foundWords = append(foundWords, prefix + char)
+            }
+            node.traverse(prefix + char, foundWords)
+        }
+    }
+    return foundWords
+}
 
 var NewTrie = InitializeTrie()

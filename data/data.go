@@ -25,11 +25,11 @@ func seedData() {
 
 func checkWords() {
     for i := 0; i < len(wordsToFind); i++ {
-        found := trie.NewTrie.IsInTrie(wordsToFind[i])
+        found := trie.NewTrie.SearchByWord(wordsToFind[i])
         if found {
             fmt.Printf("[init] \"%s\" found : TRUE\n", wordsToFind[i])
         } else {
-            fmt.Printf("[init] \"%s\" found : false\n", wordsToFind[i])
+            fmt.Printf("_init_ \"%s\" found : false\n", wordsToFind[i])
         }
     }
 }
@@ -37,4 +37,5 @@ func checkWords() {
 func InitializeData() {
     seedData()
     checkWords()
+    trie.NewTrie.SearchByPrefix("dog")  // 
 }
