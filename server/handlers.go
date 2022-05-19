@@ -42,6 +42,6 @@ func getWordsByPrefix(w http.ResponseWriter, req *http.Request) {
 func insert(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
-    currentWord := req.URL.Query().Get("word")
-    data.NewTrie.Insert(currentWord)
+    word := req.URL.Query().Get("word")
+    data.NewTrie.Insert(word)
 }

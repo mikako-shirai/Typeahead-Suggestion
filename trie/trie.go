@@ -55,6 +55,9 @@ func (trie *Trie) getNodeByWord(word string) *TrieNode {
   
     for i := 0; i < length; i++ {
         index := word[i] - 'a'
+        if currentNode.children[index] == nil {
+            return &TrieNode{}
+        }
         currentNode = currentNode.children[index]
     }
     return currentNode
@@ -67,14 +70,9 @@ func (trie *Trie) GetAllWords() []string {
 
 func (trie *Trie) GetWordsByPrefix(prefix string) []string {
     foundWords := []string{}
-
-    if isValidPrefix := trie.SearchByWord(prefix); isValidPrefix {
-        foundWords = append(foundWords, prefix)
-    }
-
     nodeAtPrefix := trie.getNodeByWord(prefix)
     foundWords = nodeAtPrefix.traverse(prefix, foundWords)
-    
+
     return foundWords
 }
 
