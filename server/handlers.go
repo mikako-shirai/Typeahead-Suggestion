@@ -18,30 +18,32 @@ func getAllWords(w http.ResponseWriter, req *http.Request) {
     foundWords := data.NewTrie.GetAllWords()
     words, err := json.Marshal(foundWords)
 
-    if err != nil {
-        panic(err)
-    } else {
-        fmt.Fprintf(w, "%v", string(words))
-    }
+    check(err)
+    fmt.Fprintf(w, "%v", string(words))
 }
 
 func getWordsByPrefix(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
-    prefix := req.URL.Query().Get("word")
+    prefix := req.URL.Query().Get("prefix")
     foundWords := data.NewTrie.GetWordsByPrefix(prefix)
     words, err := json.Marshal(foundWords)
 
-    if err != nil {
-        panic(err)
-    } else {
-        fmt.Fprintf(w, "%v", string(words))
-    }
+    check(err)
+    fmt.Fprintf(w, "%v", string(words))
 }
 
 func insert(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
     word := req.URL.Query().Get("word")
+    fmt.Printf("received word : '%v'\n", word)
     data.NewTrie.Insert(word)
+    fmt.Fprintf(w, "%v", string(word))
+}
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
 }

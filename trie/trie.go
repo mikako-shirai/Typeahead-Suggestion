@@ -71,6 +71,10 @@ func (trie *Trie) GetAllWords() []string {
 func (trie *Trie) GetWordsByPrefix(prefix string) []string {
     foundWords := []string{}
     nodeAtPrefix := trie.getNodeByWord(prefix)
+    
+    if (nodeAtPrefix.isWord) {
+        foundWords = append(foundWords, prefix)
+    }
     foundWords = nodeAtPrefix.traverse(prefix, foundWords)
 
     return foundWords

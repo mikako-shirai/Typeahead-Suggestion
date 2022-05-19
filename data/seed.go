@@ -7,21 +7,12 @@ import (
 var NewTrie = trie.InitializeTrie()
 
 func seedData() {
-    for i := 0; i < len(words); i++ {
-        NewTrie.Insert(words[i])
-    }
+	dictWords := readDataFromFile()
+	for i := 0; i < len(dictWords) / 100; i++ {  // need to reduce
+		NewTrie.Insert(dictWords[i])
+	}
 }
-
-// func checkWords() {
-//     for i := 0; i < len(wordsToFind); i++ {
-//         found := trie.NewTrie.SearchByWord(wordsToFind[i])
-//         if !found {
-//             fmt.Printf("[init] \"%s\" not found\n", wordsToFind[i])
-//         }
-//     }
-// }
 
 func InitializeData() {
     seedData()
-    // checkWords()
 }

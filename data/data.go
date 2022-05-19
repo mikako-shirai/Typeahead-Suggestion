@@ -1,14 +1,22 @@
 package data
 
-// TODO
-// add more data (find a file, read a file and add each string to NewTrie)
+import (
+	"io/ioutil"
+	"strings"
+)
 
-var words = []string{
-    "sam", "john", "tim", "jose", "rose", "roses",
-    "rosen", "rosetta", "cat", "dog", "dogg", "row",
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
 }
 
-// var wordsToFind = []string{
-//     "sam", "john", "tim", "jose", "rose", "cat",
-//     "dog", "dogg", "roses", "rosess", "ans", "san",
-// }
+func readDataFromFile() []string {
+	data, err := ioutil.ReadFile("./words/english-words.txt")
+	check(err)
+
+	dataStr := string(data)
+	dictWords := strings.Fields(dataStr)
+
+	return dictWords
+}
