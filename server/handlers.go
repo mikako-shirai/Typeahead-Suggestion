@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
 
-	"github.com/mikako-shirai/Typeahead-Suggestion/trie"
+	"github.com/mikako-shirai/Typeahead-Suggestion/data"
 )
 
 func enableCors(w *http.ResponseWriter) {
@@ -15,12 +14,12 @@ func enableCors(w *http.ResponseWriter) {
 
 func getAllWords(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
-    
-    foundWords := trie.NewTrie.GetAllWords()
+
+    foundWords := data.NewTrie.GetAllWords()
     words, err := json.Marshal(foundWords)
 
     if err != nil {
-        fmt.Println(err)
+        panic(err)
     } else {
         fmt.Fprintf(w, "%v", string(words))
     }
@@ -29,18 +28,13 @@ func getAllWords(w http.ResponseWriter, req *http.Request) {
 func getWordsByPrefix(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
-    currentWord := req.URL.Query().Get("word")
-    currentWord = strings.ToLower(currentWord)
-
-    foundWords := trie.NewTrie.GetWordsByPrefix(currentWord)
+    prefix := req.URL.Query().Get("word")
+    foundWords := data.NewTrie.GetWordsByPrefix(prefix)
     words, err := json.Marshal(foundWords)
 
     if err != nil {
-        fmt.Println(err)
+        panic(err)
     } else {
-        if len(foundWords) == 0 {
-            trie.NewTrie.Insert(currentWord)
-        }
         fmt.Fprintf(w, "%v", string(words))
     }
 }
@@ -49,6 +43,5 @@ func insert(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
     currentWord := req.URL.Query().Get("word")
-    currentWord = strings.ToLower(currentWord)
-    trie.NewTrie.Insert(currentWord)
+    data.NewTrie.Insert(currentWord)
 }

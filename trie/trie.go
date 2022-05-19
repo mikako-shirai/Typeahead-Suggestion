@@ -90,5 +90,3 @@ func (node *TrieNode) traverse(prefix string, foundWords []string) []string {
     }
     return foundWords
 }
-
-var NewTrie = InitializeTrie()
