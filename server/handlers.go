@@ -9,10 +9,20 @@ import (
 	"github.com/mikako-shirai/Typeahead-Suggestion/data"
 )
 
-var URL_GCP = "https://typeahead-suggestion.an.r.appspot.com/"
+var URL string
+var development = false
+
+func setUrl() {
+    if development {
+        URL = "http://localhost:8080"
+    } else {
+        URL = "https://typeahead-suggestion.an.r.appspot.com"
+    }
+}
 
 func enableCors(w *http.ResponseWriter) {
-    (*w).Header().Set("Access-Control-Allow-Origin", URL_GCP)
+    setUrl()
+    (*w).Header().Set("Access-Control-Allow-Origin", URL)
 }
 
 func getAllWords(w http.ResponseWriter, req *http.Request) {
