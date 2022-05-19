@@ -37,7 +37,6 @@ func insert(w http.ResponseWriter, req *http.Request) {
     enableCors(&w)
 
     word := req.URL.Query().Get("word")
-    fmt.Printf("received word : '%v'\n", word)
     data.NewTrie.Insert(word)
     fmt.Fprintf(w, "%v", string(word))
 }
