@@ -1,11 +1,12 @@
 ## CC26 Polyglottal Project - Typeahead Suggestion  
   
 **Typeahead Suggestion**  
-An auto suggestion feature built in Go.  
+An auto suggestion feature built in Go. When typing a word in the input form, it auto-suggests all the English words that share the same prefix as you type.  
 Implemented using a [trie data structure](https://en.wikipedia.org/wiki/Trie).  
+This repository only contains code for backend.  
   
 Deployed at: https://typeahead-suggestion-be.an.r.appspot.com/  
-(This is a server side, there won't be anything on the page)  
+(Since this is a server side, there won't be anything on the page)  
   
   
 ## Frontend and Backend  
