@@ -5,13 +5,16 @@ An auto suggestion feature built in Go. When typing a word in the input form, it
 Implemented using a [trie data structure](https://en.wikipedia.org/wiki/Trie).  
 This repository only contains code for backend.  
   
-Deployed at: https://typeahead-suggestion-be.an.r.appspot.com/  
-(Since this is a server side, there won't be anything on the page)  
-  
   
 ## Frontend and Backend  
 This project's frontend and backend are built separately.  
 Source files for frontend are at: https://github.com/mikako-shirai/Typeahead-Suggestion-frontend  
+  
+  
+## Deployment  
+Frontend: deployed at https://typeahead-suggestion.an.r.appspot.com/  
+Backend: deployed at https://typeahead-suggestion-be.an.r.appspot.com/  
+(Since this is a server side, there will be nothing on the page)  
   
   
 ## Built with  
