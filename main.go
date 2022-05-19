@@ -7,12 +7,10 @@ import (
 
 func main() {
 
-    // TODO 4:
-    // 1. add toString method to stringify a Trie (to serialize)
-    // 2. write a small function which runs every 1 minute and takes newTrie,
-    // turns it into a string, and writes it to a file
-    // 3. Optionally update TODO 3 to read from this file on startup, instead of building the Trie from a
-    // text file of movie titles
+    // TODO
+    // - add toString method to stringify a trie (serialize trie)
+    // - write a function which runs every 1-5 minute (takes new trie, turns it into a string, writes it to a file)
+    // - maybe update seeding part to read from this^ file on startup instead of building the trie from the seeding data everytime?
 
     data.InitializeData()
     server.InitializeServer()
