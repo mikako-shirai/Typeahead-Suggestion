@@ -17,10 +17,9 @@ func setPort() {
     PORT := os.Getenv("PORT")
     if PORT == "" {
         PORT = "8080"
-        log.Printf(" - Defaulting to port %s\n", PORT)
     }
 
-    fmt.Printf("server running on %s\n", URL)
+    fmt.Printf("server running on %s\n", PORT)
     if err := http.ListenAndServe(":"+PORT, nil); err != nil {
         log.Fatal(err)
     }
