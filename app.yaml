@@ -1,1 +1,17 @@
 runtime: go116
+
+# handlers:
+# - url: /all
+#   http_headers:
+#     Access-Control-Allow-Origin: "https://typeahead-suggestion.an.r.appspot.com/all"
+#   script: fetch all
+
+# - url: /search
+#   http_headers:
+#     Access-Control-Allow-Origin: "https://typeahead-suggestion.an.r.appspot.com/all"
+#   script: search by prefix
+
+# - url: /insert
+#   http_headers:
+#     Access-Control-Allow-Origin: "https://typeahead-suggestion.an.r.appspot.com/all"
+#   script: insert new word

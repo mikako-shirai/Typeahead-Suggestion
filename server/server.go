@@ -10,7 +10,7 @@ import (
 func setRoutes() {
     http.HandleFunc("/all", getAllWords)
     http.HandleFunc("/search", getWordsByPrefix)
-    http.HandleFunc("/add", insert)
+    http.HandleFunc("/insert", insert)
 }
 
 func setPort() {
